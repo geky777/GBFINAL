@@ -17,6 +17,7 @@ WORKDIR /app
 # Install PHP dependencies
 COPY composer.json composer.lock* ./
 COPY artisan ./
+COPY bootstrap/ ./bootstrap/
 RUN composer install --no-dev --prefer-dist --no-interaction --no-progress
 
 # Copy the rest of the application code
