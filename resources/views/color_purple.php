@@ -288,8 +288,10 @@ $homeUrl = route('home');
             height: 55vh;
         }
 
+        /* Stack archive cards in a single column on tablets/phones */
         .grid {
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: 1fr;
+            max-width: 650px;
         }
     }
 

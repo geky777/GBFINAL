@@ -441,39 +441,56 @@ h1 {
     justify-content: flex-start;
   }
 
+  /* Hide hanging card + string on mobile for a cleaner hero */
+  #home canvas,
+  .card {
+    display: none !important;
+  }
+
+  /* Let the hero heading and subtitle flow normally */
   #home h1 {
-    top: 30%;
-    left: 24px;
-    margin-left: 0;
+    position: static;
+    top: auto;
+    left: auto;
+    margin: 0 0 8px 0;
+    transform: none;
     text-align: left;
   }
 
   .title-block {
-    top: 32%;
-    left: 16px;
-    width: 80%;
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 4px;
     white-space: normal; /* allow wrapping on tablets */
   }
 
   .subtitle {
-    margin-top: 40px;
+    margin-top: 8px;
     margin-left: 0;
     font-size: 1.1rem;
   }
 
   .floating-shelf {
-    left: 24px;
+    position: relative;
+    left: 0;
+    bottom: 0;
     width: 60%;
-    bottom: 80px;
+    margin: 24px auto 8px;
   }
 
   .quote {
-    left: 24px;
-    right: 24px;
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: auto;
     font-size: 1rem;
-    margin: 0;
-    bottom: 32px;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .project-container {

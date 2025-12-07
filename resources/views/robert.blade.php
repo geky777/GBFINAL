@@ -70,31 +70,6 @@ $homeUrl = route('home');
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
         ::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 3px; }
-
-        /* Responsive layout tweaks */
-        @media (max-width: 900px) {
-            body {
-                font-size: 14px;
-            }
-
-            .vn-box {
-                padding: 1.25rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            body {
-                font-size: 13px;
-            }
-
-            .vn-box {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-        }
     </style>
 </head>
 <body>
