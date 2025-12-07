@@ -1,0 +1,64 @@
+services:
+  # Web Service
+  - type: web
+    name: gbookers
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    
+    # Environment Variables
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://gbookers.onrender.com
+      - key: SUPABASE_URL
+        value: https://qmvsxhdtvpobvyrrjxro.supabase.co
+      - key: SUPABASE_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtdnN4aGR0dnBvYnZ5cnJqeHJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMjc4MzEsImV4cCI6MjA4MDcwMzgzMX0.ZJXmoyVVL8bV05_ThL_QRhrT8gWPcFrgn_p8dCfSxOs
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_DRIVER
+        value: file
+      - key: LOG_CHANNEL
+        value: errorlog
+      - key: PORT
+        value: 8080
+
+  # Background Worker (for queues if needed)
+  - type: worker
+    name: gbookers-worker
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    autoDeploy: true
+    
+    # Command to run the worker
+    startCommand: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    
+    # Environment Variables (same as web service)
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://gbookers.onrender.com
+      - key: SUPABASE_URL
+        value: https://qmvsxhdtvpobvyrrjxro.supabase.co
+      - key: SUPABASE_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtdnN4aGR0dnBvYnZ5cnJqeHJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMjc4MzEsImV4cCI6MjA4MDcwMzgzMX0.ZJXmoyVVL8bV05_ThL_QRhrT8gWPcFrgn_p8dCfSxOs
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_DRIVER
+        value: file
+      - key: LOG_CHANNEL
+        value: errorlog

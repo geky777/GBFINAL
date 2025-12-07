@@ -481,7 +481,7 @@ h1 {
   <section id="projects">
     <h2 >Projects</h2>
     <p style="margin-top: -50px; font-size: 20px;"  >Click twice to know more!</p>
-    <div class="project-container" id="projectContainer">
+    <div class="project-container active" id="projectContainer">
     <div class="project-card center" 
      style="background: linear-gradient(rgba(104, 77, 53, 1), rgba(43, 31, 21, 1));">   
      <img src="{{ asset('asset/images/iliad.png') }}" alt="Main Project">

@@ -16,6 +16,7 @@ WORKDIR /app
 
 # Install PHP dependencies
 COPY composer.json composer.lock* ./
+COPY artisan ./
 RUN composer install --no-dev --prefer-dist --no-interaction --no-progress
 
 # Copy the rest of the application code
@@ -25,9 +26,12 @@ COPY . .
 RUN mkdir -p database \
     && touch database/database.sqlite
 
-# Prepare environment (.env from example) and generate app key
+# Prepare environment and generate app key
 RUN if [ ! -f .env ]; then cp .env.example .env; fi \
-    && php artisan key:generate --force
+    && php artisan key:generate --force \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
 
 # Expose the port Render will use
 ENV PORT=8080

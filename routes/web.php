@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SupabaseController;
 
 // Homepage
 Route::get('/', function () {
@@ -27,3 +28,12 @@ Route::get('/color_purple', function () {
 Route::get('/robert', function () {
     return view('robert');
 })->name('robert');
+
+// Supabase API Routes
+Route::get('/supabase', function () {
+    return view('supabase');
+})->name('supabase.demo');
+Route::get('/supabase/data', [SupabaseController::class, 'index'])->name('supabase.index');
+Route::post('/supabase/data', [SupabaseController::class, 'store'])->name('supabase.store');
+Route::put('/supabase/data/{id}', [SupabaseController::class, 'update'])->name('supabase.update');
+Route::delete('/supabase/data/{id}', [SupabaseController::class, 'destroy'])->name('supabase.destroy');
