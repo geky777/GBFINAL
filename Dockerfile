@@ -18,7 +18,7 @@ WORKDIR /app
 COPY composer.json composer.lock* ./
 COPY artisan ./
 COPY bootstrap/ ./bootstrap/
-RUN composer install --no-dev --prefer-dist --no-interaction --no-progress
+RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --no-scripts
 
 # Copy the rest of the application code
 COPY . .
@@ -30,6 +30,7 @@ RUN mkdir -p database \
 # Prepare environment and generate app key
 RUN if [ ! -f .env ]; then cp .env.example .env; fi \
     && php artisan key:generate --force \
+    && php artisan package:discover --ansi \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:cache
