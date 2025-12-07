@@ -425,6 +425,130 @@ h1 {
   margin: 0;
 }
 
+/* Responsive layout tweaks */
+@media (max-width: 900px) {
+  nav {
+    top: 15px;
+    gap: 16px;
+    font-size: 0.85rem;
+  }
+
+  section {
+    height: auto;
+    min-height: 100vh;
+    padding: 80px 16px 40px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  #home h1 {
+    top: 30%;
+    left: 24px;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .title-block {
+    top: 32%;
+    left: 16px;
+    width: 80%;
+    white-space: normal; /* allow wrapping on tablets */
+  }
+
+  .subtitle {
+    margin-top: 40px;
+    margin-left: 0;
+    font-size: 1.1rem;
+  }
+
+  .floating-shelf {
+    left: 24px;
+    width: 60%;
+    bottom: 80px;
+  }
+
+  .quote {
+    left: 24px;
+    right: 24px;
+    width: auto;
+    font-size: 1rem;
+    margin: 0;
+    bottom: 32px;
+  }
+
+  .project-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    perspective: none;
+  }
+
+  .project-card,
+  .project-card.center,
+  .project-card.side {
+    position: static;
+    width: 90%;
+    max-width: 360px;
+    height: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    pointer-events: auto;
+  }
+
+  .contact-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px;
+    overflow-x: visible;
+  }
+}
+
+@media (max-width: 600px) {
+  nav {
+    gap: 10px;
+    font-size: 0.75rem;
+  }
+
+  .title-block {
+    top: 28%;
+    width: 90%;
+  }
+
+  .main-title {
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .card {
+    width: 220px;
+    aspect-ratio: 2/3;
+  }
+
+  #about {
+    padding: 40px 16px;
+  }
+
+  #about h2 {
+    font-size: 2.2rem;
+  }
+
+  #about p {
+    font-size: 1.05rem;
+  }
+
+  #projects h2 {
+    font-size: 2.2rem;
+  }
+
+  .contact-card {
+    width: 100%;
+    max-width: 260px;
+  }
+}
 
 </style>
 </head>

@@ -101,6 +101,68 @@ h2 { font-size:2.5rem; margin-top:10px; }
 
 section { opacity:0; transform:translateY(30px); transition: all 0.8s ease-in-out; margin-bottom:50px; }
 section.visible { opacity:1; transform:translateY(0); }
+
+/* Responsive layout tweaks */
+@media (max-width: 900px) {
+  .content-container {
+    padding: 80px 16px 24px;
+  }
+
+  .timeline {
+    flex-wrap: wrap;
+    row-gap: 16px;
+    column-gap: 24px;
+  }
+  .timeline::before {
+    top: auto;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+  }
+
+  .character-container {
+    gap: 16px;
+  }
+  .character-card {
+    width: 45%;
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  header { padding: 32px 16px 12px; }
+  h2 { font-size: 2rem; }
+
+  .timeline {
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline::before {
+    width: 4px;
+    left: 50%;
+    right: auto;
+    top: 10%;
+    bottom: 10%;
+  }
+  .timeline-point {
+    width: 100%;
+  }
+
+  .character-card {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .analysis-container,
+  #play-game {
+    padding: 16px;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 16px;
+  }
+}
 </style>
 </head>
 <body>

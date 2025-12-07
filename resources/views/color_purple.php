@@ -268,6 +268,81 @@ $homeUrl = route('home');
     .tab-content.active { display: grid; } /* Grid for card layout */
     .tab-content.active.block-layout { display: block; } /* Block for other layouts */
 
+    /* Responsive layout tweaks */
+    @media (max-width: 900px) {
+        h1 {
+            font-size: 3rem;
+        }
+
+        #vn-screen {
+            padding: 24px 12px 40px;
+        }
+
+        .dialogue-box {
+            width: 95%;
+            max-width: 700px;
+            padding: 20px;
+        }
+
+        .character-sprite {
+            height: 55vh;
+        }
+
+        .grid {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+    }
+
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 2.4rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            padding: 0 12px;
+        }
+
+        .start-btn {
+            width: 80%;
+            max-width: 260px;
+            padding: 16px 24px;
+            font-size: 1.2rem;
+        }
+
+        .character-sprite {
+            height: 40vh;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.7;
+        }
+
+        .dialogue-box {
+            margin-bottom: 8px;
+            padding: 18px;
+        }
+
+        .dialogue-text {
+            font-size: 1.4rem;
+        }
+
+        #archive-screen {
+            padding: 32px 12px;
+        }
+
+        .archive-nav {
+            flex-wrap: wrap;
+        }
+
+        .anime-card {
+            margin: 0 auto;
+        }
+
+        .quiz-container {
+            padding: 20px;
+        }
+    }
+
 </style>
 </head>
 <body>
