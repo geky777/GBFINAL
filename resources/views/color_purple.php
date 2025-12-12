@@ -68,7 +68,9 @@ $homeUrl = route('home');
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin-bottom: 10px;
-        text-shadow: 0 0 20px rgba(255, 94, 180, 0.5);
+        text-shadow: 2px 2px 10px #2a0845, 0 0 18px #fff, 0 0 32px var(--primary);
+        letter-spacing: 2px;
+        line-height: 1.1;
     }
 
     .subtitle {
@@ -131,7 +133,7 @@ $homeUrl = route('home');
         background: rgba(0, 0, 0, 0.85);
         border: 2px solid var(--primary);
         border-radius: 15px;
-        padding: 30px;
+        padding: 30px 40px;
         box-shadow: 0 0 20px var(--primary);
         cursor: pointer;
     }
@@ -151,9 +153,15 @@ $homeUrl = route('home');
 
     .dialogue-text {
         font-family: var(--font-hand);
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         color: white;
-        line-height: 1.4;
+        line-height: 1.6;
+        max-width: 100%;
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 10px 0;
+        margin-bottom: 8px;
     }
 
     .continue-indicator {

@@ -301,20 +301,99 @@ $homeUrl = route('home');
         }
 
         function App() {
-            const scrollRef = useRef(null);
-            const { scrollXProgress } = useScroll({ container: scrollRef });
-            const [activeStanza, setActiveStanza] = useState(null);
-            const [showAnalysis, setShowAnalysis] = useState(false);
-            const [showAuthor, setShowAuthor] = useState(false);
-            const [showGame, setShowGame] = useState(false);
+    const scrollRef = useRef(null);
+    const enterUnknownRef = useRef(null);
+    const { scrollXProgress } = useScroll({ container: scrollRef });
+    const [activeStanza, setActiveStanza] = useState(null);
+    const [showAnalysis, setShowAnalysis] = useState(false);
+    const [showAuthor, setShowAuthor] = useState(false);
+    const [showGame, setShowGame] = useState(false);
+    const [showDialogue, setShowDialogue] = useState(false);
 
-            const backgroundX = useTransform(scrollXProgress, [0, 1], ["0%", "-50%"]);
-            const characterX = useTransform(scrollXProgress, [0, 1], ["10%", "80%"]);
+    const backgroundX = useTransform(scrollXProgress, [0, 1], ["0%", "-50%"]);
+    // On mobile, Robert's position is based on activeStanza (0 = left, last = right)
+    const characterX = isMobile && activeStanza !== null
+        ? `${4 + (activeStanza * 74 / (stanzaCount - 1))}%`
+        : useTransform(scrollXProgress, [0, 1], ["4%", "78%"]);
 
-            return (
-                <div className="h-screen w-screen bg-[#050b14] overflow-hidden relative font-body selection:bg-primary/30">
-                    <Snowfall />
-                    
+    // Mobile arrow navigation
+    const isMobile = window.innerWidth <= 900;
+    const stanzaCount = POEM.length;
+    const handlePrev = () => {
+	if (activeStanza === null) {
+		setActiveStanza(0);
+		scrollToStanza(0);
+	} else {
+		setActiveStanza(s => {
+			const nextIndex = Math.max(0, s - 1);
+			scrollToStanza(nextIndex);
+			return nextIndex;
+		});
+	}
+};
+const handleNext = () => {
+	if (activeStanza === null) {
+		setActiveStanza(0);
+		scrollToStanza(0);
+	} else if (activeStanza === stanzaCount - 1) {
+		// After the last stanza, move fully to the Enter The Unknown button
+		if (scrollRef.current) {
+			const container = scrollRef.current;
+			container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
+		}
+		if (enterUnknownRef && enterUnknownRef.current) {
+			enterUnknownRef.current.focus();
+		}
+	} else {
+		setActiveStanza(s => {
+			const nextIndex = Math.min(stanzaCount - 1, s + 1);
+			scrollToStanza(nextIndex);
+			return nextIndex;
+		});
+	}
+};
+// Smooth scroll to stanza
+const scrollToStanza = (index) => {
+    if (!scrollRef.current) return;
+    const stanzaNodes = scrollRef.current.querySelectorAll('.snap-center');
+    if (stanzaNodes && stanzaNodes[index]) {
+        stanzaNodes[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+};
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (showGame) return;
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                handlePrev();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                handleNext();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [showGame, handlePrev, handleNext]);
+
+    return (
+        <div className="h-screen w-screen bg-[#050b14] overflow-hidden relative font-body selection:bg-primary/30">
+            <Snowfall />
+            {/* Arrow Navigation & Dialogue Toggle (hidden when game is active) */}
+            {!showGame && (
+                <>
+                    <div style={{position:'fixed', bottom:24, left:0, width:'100%', display:'flex', justifyContent:'space-between', zIndex:100}}>
+	<button onClick={handlePrev} style={{marginLeft:18, background:'#bae6fd', color:'#050b14', borderRadius:999, padding:14, border:'none', fontWeight:'bold', fontSize:22, boxShadow:'0 2px 10px #2228'}} disabled={activeStanza === 0}>&larr;</button>
+	<button onClick={handleNext} style={{marginRight:18, background:'#bae6fd', color:'#050b14', borderRadius:999, padding:14, border:'none', fontWeight:'bold', fontSize:22, boxShadow:'0 2px 10px #2228'}}>&rarr;</button>
+</div>
+<button onClick={()=>setShowDialogue(v=>!v)} style={{position:'fixed', bottom:90, right:18, zIndex:101, background:'#bae6fd', color:'#050b14', borderRadius:999, padding:'10px 18px', border:'none', fontWeight:'bold', fontSize:16, boxShadow:'0 2px 10px #2228'}}>
+	{showDialogue ? 'Hide Dialogue' : 'Show Dialogue'}
+</button>
+                </>
+            )}
+            
                     {/* Background */}
                     <motion.div className="absolute inset-0 h-full w-[200vw] z-0" style={{ x: backgroundX }}>
                     <img 
@@ -329,15 +408,20 @@ $homeUrl = route('home');
 
                     {/* Scroll Container */}
                     <div ref={scrollRef} className="absolute inset-0 overflow-x-auto overflow-y-hidden flex items-end hide-scrollbar z-10 snap-x snap-mandatory">
-                        <div className="flex h-full min-w-[300vw] items-end pb-24 pl-[20vw] pr-[50vw] relative">
+                        <div className="flex h-full min-w-[260vw] md:min-w-[300vw] items-end pb-20 md:pb-24 pl-[10vw] md:pl-[20vw] pr-[30vw] md:pr-[50vw] relative">
                             <div className="absolute bottom-32 left-0 w-full h-2 border-t-4 border-dashed border-white/30 pointer-events-none" />
                             {POEM.map((_, i) => (
-                                <div key={i} className="snap-center w-[60vw] h-full flex items-end justify-center relative pb-32">
+                                <div key={i} className="snap-center w-[70vw] sm:w-[60vw] h-full flex items-end justify-center relative pb-24 md:pb-32">
                                     <TreeMarker index={i} active={activeStanza === i} onClick={() => setActiveStanza(i)} />
                                 </div>
                             ))}
-                            <div className="snap-center w-[80vw] h-full flex items-center justify-center pb-32">
-                                <motion.button onClick={() => setShowGame(true)} whileHover={{ scale: 1.05 }} className="group relative px-8 py-4 bg-primary/10 border border-primary/30 rounded-full backdrop-blur-md overflow-hidden hover:bg-primary/20 transition-all">
+                            <div className="snap-center w-[90vw] sm:w-[80vw] h-full flex items-center justify-center pb-24 md:pb-32">
+                                <motion.button
+                                    ref={enterUnknownRef}
+                                    onClick={() => { setShowGame(true); setShowDialogue(false); }}
+                                    whileHover={{ scale: 1.05 }}
+                                    className="group relative px-8 py-4 bg-primary/10 border border-primary/30 rounded-full backdrop-blur-md overflow-hidden hover:bg-primary/20 transition-all"
+                                >
                                     <span className="relative flex items-center gap-2 text-xl font-heading text-primary-foreground"><Icons.Gamepad2 className="w-6 h-6" /> Enter The Unknown</span>
                                 </motion.button>
                             </div>
@@ -361,9 +445,9 @@ $homeUrl = route('home');
 
                     {/* UI */}
                     <div className="fixed top-0 left-0 w-full p-6 z-50 flex justify-between items-start pointer-events-none">
-                        <div className="pointer-events-auto flex flex-col">
-                            <h1 className="text-3xl font-heading text-white tracking-widest drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">THE ROAD<span className="text-primary">NOT TAKEN</span></h1>
-                            <div className="text-[10px] text-primary/80 font-ui uppercase tracking-[0.3em] pl-1">By Robert Frost</div>
+                        <div className="pointer-events-auto flex flex-col max-w-[75%] sm:max-w-none">
+                            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)] break-words text-center sm:text-left" style={{textShadow:'0 4px 18px #000,0 0 10px #bae6fd'}}>THE<br /><span className="block">ROAD</span><span className="block text-primary">NOT TAKEN</span></h1>
+<div className="mt-2 text-[12px] sm:text-xs text-primary/80 font-ui uppercase tracking-[0.25em] text-center sm:text-left">BY ROBERT<br />FROST</div>
                         </div>
                         <div className="pointer-events-auto flex gap-3">
     <button onClick={() => setShowAuthor(true)} className="h-10 px-4 rounded-full backdrop-blur border bg-black/40 hover:bg-black/60 border-white/10 text-white flex items-center gap-2">
@@ -388,18 +472,23 @@ $homeUrl = route('home');
 
                     {/* Visual Novel Box */}
                     <AnimatePresence mode='wait'>
-                        {activeStanza !== null && !showGame && (
-                            <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 100, opacity: 0 }} className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90vw] max-w-4xl z-40">
-                                <div className="vn-box p-6 md:p-8 min-h-[160px] flex gap-6 items-start bg-slate-900/90 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-2xl">
+                        {!showGame && showDialogue && (
+                            <motion.div
+                                initial={{ y: 100, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: 100, opacity: 0 }}
+                                className="fixed top-auto bottom-[56px] sm:bottom-6 left-3 sm:left-1/2 sm:-translate-x-1/2 w-[96vw] sm:w-[90vw] max-w-3xl md:max-w-4xl z-40 px-1 sm:px-0"
+                            >
+                                <div className="vn-box p-4 sm:p-6 md:p-8 min-h-[150px] flex gap-3 sm:gap-6 items-start bg-slate-900/95 backdrop-blur-xl border border-primary/30 rounded-2xl shadow-2xl">
                                     <div className="hidden md:block shrink-0">
                                         <div className="w-20 h-20 rounded-full border-2 border-primary/30 p-1 relative">
                                         <img src="/images/frost.png" className="w-full h-full object-cover rounded-full" /></div>
                                         <div className="mt-2 text-center text-[10px] font-heading text-primary tracking-widest uppercase">R. Frost</div>
                                     </div>
-                                    <div className="flex-1 space-y-2 pt-1">
+                                    <div className="flex-1 space-y-1 sm:space-y-2 pt-1">
                                         <AnimatePresence mode='wait'>
-                                            <motion.div key={activeStanza} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="text-lg md:text-xl leading-relaxed text-blue-50 font-body drop-shadow-md">
-                                                {POEM[activeStanza].map((line, i) => <p key={i} className="mb-1">{line}</p>)}
+                                            <motion.div key={activeStanza} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="text-lg sm:text-xl md:text-2xl leading-relaxed text-blue-50 font-body drop-shadow-md">
+                                                {POEM[activeStanza === null ? 0 : activeStanza].map((line, i) => <p key={i} className="mb-1">{line}</p>)}
                                             </motion.div>
                                         </AnimatePresence>
                                     </div>

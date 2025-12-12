@@ -25,13 +25,16 @@
   }
 
   section {
-    height: 100vh; 
+    height: 100vh;
     width: 100vw;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   /* Navbar */
@@ -90,12 +93,12 @@ h1 {
     font-weight: 300;
     font-size: clamp(3rem, 8vw, 7rem);
     letter-spacing: 0.02em;
-    text-align: left;
+    text-align: center;
     position: absolute;
     top: 40%;
-    left: 80px;
-    margin-left: 20px;
-    transform: translateY(-50%);
+    left: 50%;
+    margin-left: 0;
+    transform: translate(-50%, -50%);
     user-select: none;
     pointer-events: none;
   }
@@ -182,14 +185,14 @@ h1 {
     padding: 40px;
   }
   #about h2 {
-    font-size: 3rem;
+    font-size: 2.6rem;
     margin-bottom: 20px;
     font-family: 'Cinzel Decorative', serif;
     color: #d4af37;
   }
   #about p {
     max-width: 800px;
-    margin: auto;
+    margin: 0 auto;
     font-size: 1.3rem;
     line-height: 1.8;
     color: #e6e4df;
@@ -277,7 +280,7 @@ h1 {
 .title-block {
     position: absolute;
     top: 35%;
-    left: 10px;
+    left: 0px;
     transform: translateY(-30%);
     display: flex;
     flex-direction: column;
@@ -286,6 +289,26 @@ h1 {
     white-space: nowrap; /* FORCE text to stay on single line */
     z-index: 10;
 }
+
+@media (max-width: 900px) {
+  .title-block {
+    margin-left: 18px;
+  }
+}
+
+@media (min-width: 900px) {
+  .title-block {
+    left: 0;
+    top: 38%;
+    transform: none;
+    align-items: flex-start;
+    width: auto;
+    white-space: nowrap;
+    text-align: left;
+    margin-left: 170px;
+  }
+}
+
 
 .main-title {
     font-family: 'Cinzel', serif;
@@ -300,13 +323,24 @@ h1 {
     pointer-events: none;
 }
 
+@media (min-width: 900px) {
+  .main-title {
+    font-size: 7rem;
+    color: #ffe9b3;
+    text-shadow: 3px 3px 16px #000, 0 0 36px #d4af37, 0 2px 0 #a88c4a;
+    letter-spacing: 0.06em;
+    line-height: 1.08;
+  }
+}
+
+
 .subtitle {
     font-size: 28px;
     font-family: 'Spectral SC', serif;
     font-weight: 300;
     color: #d1c5a2;
     margin-top: 110px;
-    margin-left: 110px;
+    margin-left: 40px;
     letter-spacing: 3px;
     text-shadow: 0px 0px 6px rgba(255, 255, 200, 0.2);
     user-select: none;
@@ -315,10 +349,10 @@ h1 {
 
 .floating-shelf {
   color: #d4af37;
-  margin-left: 50px;
+  margin-left: 20px;
   position: absolute;
   bottom: 120px;
-  left: 80px;
+  left: 40px;
   width: 240px;
   height: 8px;
   background: linear-gradient(to bottom, #b9935a, #6e5321);
@@ -327,14 +361,14 @@ h1 {
 }
 
 .quote {
-  margin-left: 30px;
+  margin-left: 10px;
   margin-top: -30px;
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.2rem;
   color: #d4c6a0;
   position: absolute;
   bottom: 60px;
-  left: 100px;
+  left: 60px;
   opacity: 0.8;
   animation: fadeQuote 12s infinite;
 }
@@ -436,7 +470,7 @@ h1 {
   section {
     height: auto;
     min-height: 100vh;
-    padding: 80px 16px 40px;
+    padding: 80px 8px 40px; /* less side padding so text is more visible */
     align-items: flex-start;
     justify-content: flex-start;
   }
@@ -529,7 +563,8 @@ h1 {
 
   .title-block {
     top: 28%;
-    width: 90%;
+    width: 96%;
+    padding-left: 0; /* remove extra left padding on small screens */
   }
 
   .main-title {
@@ -550,11 +585,16 @@ h1 {
   }
 
   #about h2 {
-    font-size: 2.2rem;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   #about p {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
+    max-width: 100%;
+    text-align: left;
   }
 
   #projects h2 {
@@ -564,6 +604,28 @@ h1 {
   .contact-card {
     width: 100%;
     max-width: 260px;
+  }
+}
+
+.double-tap-instruction {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 1.25rem;
+  margin-top: -30px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  animation: pulseGold 1.6s infinite alternate;
+  text-shadow: 0 2px 12px #a88c4a, 0 0 6px #fff8;
+}
+
+@keyframes pulseGold {
+  from {
+    opacity: 0.7;
+    text-shadow: 0 2px 12px #a88c4a, 0 0 6px #fff8;
+  }
+  to {
+    opacity: 1;
+    text-shadow: 0 4px 24px #ffd700, 0 0 16px #fff9;
   }
 }
 
@@ -621,7 +683,7 @@ h1 {
   <!-- PROJECTS SECTION -->
   <section id="projects">
     <h2 >Projects</h2>
-    <p style="margin-top: -50px; font-size: 20px;"  >Click twice to know more!</p>
+    <p class="double-tap-instruction"></p>
     <div class="project-container active" id="projectContainer">
     <div class="project-card center" 
      style="background: linear-gradient(rgba(104, 77, 53, 1), rgba(43, 31, 21, 1));">   
