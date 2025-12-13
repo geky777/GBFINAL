@@ -743,7 +743,7 @@
     <div class="project-container active" id="projectContainer">
       <div class="project-card center" 
            style="background: linear-gradient(rgba(104, 77, 53, 1), rgba(43, 31, 21, 1));">   
-        <img src="{{ asset('asset/images/iliad.png') }}" alt="Main Project">
+        <img src="/asset/images/iliad.png" alt="Main Project">
         <h3>Classical Age</h3>
         <h4>The Illiad</h4>
         <p>An epic poem that chronicles the wrath of Achilles during the Trojan War, exploring themes of honor, fate, and the human cost of pride.</p>

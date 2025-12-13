@@ -168,15 +168,15 @@ section.visible { opacity:1; transform:translateY(0); }
     <h3>Main Characters</h3>
     <div class="character-container">
       <div class="character-card">
-        <img src="{{ asset('images/achilles.jpg') }}" alt="Achilles">
+        <img src="/images/achilles.jpg" alt="Achilles">
         <p><strong>Achilles:</strong> Greek warrior, prideful and unstoppable in battle.</p>
       </div>
       <div class="character-card">
-        <img src="{{ asset('images/hector.jpg') }}" alt="Hector">
+        <img src="/images/hector.jpg" alt="Hector">
         <p><strong>Hector:</strong> Trojan prince and hero, defender of Troy.</p>
       </div>
       <div class="character-card">
-        <img src="{{ asset('images/agamemnon.jpg') }}" alt="Agamemnon">
+        <img src="/images/agamemnon.jpg" alt="Agamemnon">
         <p><strong>Agamemnon:</strong> King of Mycenae and leader of the Achaean army.</p>
       </div>
     </div>

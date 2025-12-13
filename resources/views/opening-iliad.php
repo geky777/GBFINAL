@@ -26,7 +26,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background: url('/images/iliad-bg.jpg') no-repeat center center/cover;
+        background: url("{{ asset('images/iliad-bg.jpg') }}") no-repeat center center/cover;
         filter: blur(6px) brightness(0.5);
         z-index: -1;
     }
