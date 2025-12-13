@@ -25,14 +25,30 @@ header { text-align:center; padding:50px 20px; }
 h1 { font-size:clamp(3rem,6vw,5rem); }
 h2 { font-size:2.5rem; margin-top:10px; }
 
-.content-container { max-width:1000px; margin:auto; padding:100px 20px 20px; }
+.content-container { max-width:1000px; margin:auto; padding:30px 20px 20px; }
 
 /* TIMELINE */
-.timeline { display:flex; justify-content:space-between; margin-top: -80px; margin-bottom: 40px; position:relative; }
-.timeline::before { content:''; position:absolute; top:50%; left:5%; right:5%; height:4px; background:#d4af37; z-index:0; border-radius:2px; }
-.timeline-point { z-index:1; text-align:center; cursor:pointer; }
+.timeline { display:flex; justify-content:space-between; margin-top: 30px; margin-bottom: 50px; position: relative; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #d4af37;
+  border-radius: 2px;
+  z-index: 0;
+}
+.timeline-point {
+  text-align: center;
+  cursor: pointer;
+  padding-bottom: 10px; /* lifts text above the line */
+  position: relative;
+  z-index: 1;
+}
+.timeline-point h4 { transition: 0.3s; }
 .timeline-point:hover h4 { color:#fff; transform:scale(1.1); }
-.timeline-point h4 { transition:0.3s; }
 
 /* CHARACTER CARDS */
 .character-container { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
@@ -46,7 +62,16 @@ h2 { font-size:2.5rem; margin-top:10px; }
 .quote:hover { background: rgba(212,175,55,0.3); transform:scale(1.02); transition:0.3s; }
 
 /* BACK BUTTON */
-.back-btn { position: fixed; top:20px; left:20px; padding:10px 20px; border:2px solid #d4af37; border-radius:6px; color:#d4af37; background:transparent; z-index:1000; transition:0.3s; }
+.back-btn {
+  display:inline-block;
+  margin:20px;
+  padding:10px 20px;
+  border:2px solid #d4af37;
+  border-radius:6px;
+  color:#d4af37;
+  background:transparent;
+  transition:0.3s;
+}
 .back-btn:hover { background:#d4af37; color:#232430; }
 
 /* ANALYSIS CONTAINER */
@@ -101,6 +126,22 @@ h2 { font-size:2.5rem; margin-top:10px; }
 
 section { opacity:0; transform:translateY(30px); transition: all 0.8s ease-in-out; margin-bottom:50px; }
 section.visible { opacity:1; transform:translateY(0); }
+
+@media (max-width: 900px) {
+  .quote {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 320px;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin: 32px auto 48px auto;
+    padding: 0 12px;
+    text-align: center;
+  }
+}
 </style>
 </head>
 <body>
@@ -160,6 +201,13 @@ section.visible { opacity:1; transform:translateY(0); }
       His works shaped Western literature and storytelling traditions.</p>
     </div>
   </section>
+
+  <div class="timeline">
+    <div class="timeline-point" onclick="showTimelineEvent('Heroic Age')"><h4>Heroic Age</h4></div>
+    <div class="timeline-point" onclick="showTimelineEvent('Greek Era')"><h4>Greek Era</h4></div>
+    <div class="timeline-point" onclick="showTimelineEvent('Roman Era')"><h4>Roman Era</h4></div>
+    <div class="timeline-point" onclick="showTimelineEvent('Patristic')"><h4>Patristic</h4></div>
+  </div>
 
   <section id="play-game">
     <h3>Do you want to play a game?</h3>

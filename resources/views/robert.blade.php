@@ -336,13 +336,14 @@ const handleNext = () => {
 		setActiveStanza(0);
 		scrollToStanza(0);
 	} else if (activeStanza === stanzaCount - 1) {
-		// After the last stanza, move fully to the Enter The Unknown button
+		// After the last stanza, scroll fully to the Enter The Unknown area and focus the button
 		if (scrollRef.current) {
 			const container = scrollRef.current;
 			container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
 		}
 		if (enterUnknownRef && enterUnknownRef.current) {
-			enterUnknownRef.current.focus();
+			// Delay focus slightly so it's applied after scroll starts
+			setTimeout(() => enterUnknownRef.current && enterUnknownRef.current.focus(), 300);
 		}
 	} else {
 		setActiveStanza(s => {
@@ -363,7 +364,9 @@ const scrollToStanza = (index) => {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (showGame) return;
+            // Disable arrow navigation while any full-screen overlay is open
+            if (showGame || showAnalysis || showAuthor) return;
+
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 handlePrev();
@@ -376,19 +379,38 @@ const scrollToStanza = (index) => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [showGame, handlePrev, handleNext]);
+    }, [showGame, showAnalysis, showAuthor, handlePrev, handleNext]);
 
     return (
         <div className="h-screen w-screen bg-[#050b14] overflow-hidden relative font-body selection:bg-primary/30">
             <Snowfall />
-            {/* Arrow Navigation & Dialogue Toggle (hidden when game is active) */}
-            {!showGame && (
+            {/* Arrow Navigation & Dialogue Toggle (hidden when game OR any overlay is active) */}
+            {!showGame && !showAnalysis && !showAuthor && (
                 <>
-                    <div style={{position:'fixed', bottom:24, left:0, width:'100%', display:'flex', justifyContent:'space-between', zIndex:100}}>
+                    {/* Left / Right arrows pinned near bottom edge */}
+                    <div style={{position:'fixed', bottom:16, left:0, width:'100%', display:'flex', justifyContent:'space-between', zIndex:100}}>
 	<button onClick={handlePrev} style={{marginLeft:18, background:'#bae6fd', color:'#050b14', borderRadius:999, padding:14, border:'none', fontWeight:'bold', fontSize:22, boxShadow:'0 2px 10px #2228'}} disabled={activeStanza === 0}>&larr;</button>
 	<button onClick={handleNext} style={{marginRight:18, background:'#bae6fd', color:'#050b14', borderRadius:999, padding:14, border:'none', fontWeight:'bold', fontSize:22, boxShadow:'0 2px 10px #2228'}}>&rarr;</button>
 </div>
-<button onClick={()=>setShowDialogue(v=>!v)} style={{position:'fixed', bottom:90, right:18, zIndex:101, background:'#bae6fd', color:'#050b14', borderRadius:999, padding:'10px 18px', border:'none', fontWeight:'bold', fontSize:16, boxShadow:'0 2px 10px #2228'}}>
+                    {/* Dialogue toggle centered between arrows */}
+<button
+  onClick={() => setShowDialogue(v => !v)}
+  style={{
+    position: 'fixed',
+    bottom: 40,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    zIndex: 101,
+    background: '#bae6fd',
+    color: '#050b14',
+    borderRadius: 999,
+    padding: '10px 18px',
+    border: 'none',
+    fontWeight: 'bold',
+    fontSize: 16,
+    boxShadow: '0 2px 10px #2228'
+  }}
+>
 	{showDialogue ? 'Hide Dialogue' : 'Show Dialogue'}
 </button>
                 </>
@@ -446,15 +468,15 @@ const scrollToStanza = (index) => {
                     {/* UI */}
                     <div className="fixed top-0 left-0 w-full p-6 z-50 flex justify-between items-start pointer-events-none">
                         <div className="pointer-events-auto flex flex-col max-w-[75%] sm:max-w-none">
-                            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)] break-words text-center sm:text-left" style={{textShadow:'0 4px 18px #000,0 0 10px #bae6fd'}}>THE<br /><span className="block">ROAD</span><span className="block text-primary">NOT TAKEN</span></h1>
-<div className="mt-2 text-[12px] sm:text-xs text-primary/80 font-ui uppercase tracking-[0.25em] text-center sm:text-left">BY ROBERT<br />FROST</div>
+                            <h1 className="text-3xl sm:text-5xl font-heading font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)] break-words text-center sm:text-left" style={{textShadow:'0 4px 18px #000,0 0 10px #bae6fd'}}>THE<br /><span className="block">ROAD</span><span className="block text-primary">NOT TAKEN</span></h1>
+<div className="mt-1 sm:mt-2 text-[11px] sm:text-xs text-primary/80 font-ui uppercase tracking-[0.25em] text-center sm:text-left">BY ROBERT<br />FROST</div>
                         </div>
                         <div className="pointer-events-auto flex gap-3">
-    <button onClick={() => setShowAuthor(true)} className="h-10 px-4 rounded-full backdrop-blur border bg-black/40 hover:bg-black/60 border-white/10 text-white flex items-center gap-2">
+    <button onClick={() => { setShowAuthor(true); setShowAnalysis(false); setShowDialogue(false); }} className="h-10 px-4 rounded-full backdrop-blur border bg-black/40 hover:bg-black/60 border-white/10 text-white flex items-center gap-2">
         <Icons.User className="w-4 h-4" />
         <span className="hidden sm:inline font-ui text-sm font-bold">AUTHOR</span>
     </button>
-    <button onClick={() => setShowAnalysis(!showAnalysis)} className={`h-10 px-4 rounded-full backdrop-blur border transition-all flex items-center gap-2 shadow-lg ${showAnalysis ? 'bg-primary text-primary-foreground border-primary' : 'bg-black/40 hover:bg-black/60 border-white/10 text-white'}`}>
+    <button onClick={() => { setShowAuthor(false); setShowDialogue(false); setShowAnalysis(v => !v); }} className={`h-10 px-4 rounded-full backdrop-blur border transition-all flex items-center gap-2 shadow-lg ${showAnalysis ? 'bg-primary text-primary-foreground border-primary' : 'bg-black/40 hover:bg-black/60 border-white/10 text-white'}`}>
         <Icons.Search className="w-4 h-4" />
         <span className="hidden sm:inline font-ui text-sm font-bold">ANALYSIS</span>
     </button>
@@ -477,7 +499,7 @@ const scrollToStanza = (index) => {
                                 initial={{ y: 100, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ y: 100, opacity: 0 }}
-                                className="fixed top-auto bottom-[56px] sm:bottom-6 left-3 sm:left-1/2 sm:-translate-x-1/2 w-[96vw] sm:w-[90vw] max-w-3xl md:max-w-4xl z-40 px-1 sm:px-0"
+                                className="fixed top-auto bottom-[112px] sm:bottom-20 left-3 sm:left-1/2 sm:-translate-x-1/2 w-[96vw] sm:w-[90vw] max-w-3xl md:max-w-4xl z-40 px-1 sm:px-0"
                             >
                                 <div className="vn-box p-4 sm:p-6 md:p-8 min-h-[150px] flex gap-3 sm:gap-6 items-start bg-slate-900/95 backdrop-blur-xl border border-primary/30 rounded-2xl shadow-2xl">
                                     <div className="hidden md:block shrink-0">

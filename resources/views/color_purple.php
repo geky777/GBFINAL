@@ -110,9 +110,9 @@ $homeUrl = route('home');
     
     .character-sprite {
         position: absolute;
-        bottom: 0;
+        bottom: 140px; /* lift Celie up so she clears the dialogue box */
         left: 5%;
-        height: 70vh;
+        height: 60vh;
         z-index: 1;
         filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
         display: flex;

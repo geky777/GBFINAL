@@ -18,10 +18,8 @@
     color: #e6e4df;
     font-family: serif;
     scroll-behavior: smooth;
-
-     /* ADD THESE TWO LINES */
-     overflow-x: hidden;  /* prevent horizontal scrolling */
-     width: 100vw;        /* fix width to viewport */
+    overflow-x: hidden;
+    width: 100vw;
   }
 
   section {
@@ -58,33 +56,30 @@
 
   /* ================= HOME ================= */
   #home {
-  background: radial-gradient(circle at center, #1e1c15 0%, #141416 100%);
-  background-image: url('images/paper-texture.png'); /* optional subtle texture */
-  background-size: cover;
-  background-blend-mode: multiply;
-}
+    background: radial-gradient(circle at center, #1e1c15 0%, #141416 100%);
+    background-image: url('images/paper-texture.png');
+    background-size: cover;
+    background-blend-mode: multiply;
+  }
 
-#home::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(white 1px, transparent 1px);
-  background-size: 3px 3px;
-  opacity: 0.06;
-  animation: drift 15s infinite linear;
-}
+  #home::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(white 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.06;
+    animation: drift 15s infinite linear;
+  }
 
-@keyframes drift {
-  from { background-position: 0 0; }
-  to { background-position: 100px 100px; }
-}
+  @keyframes drift {
+    from { background-position: 0 0; }
+    to { background-position: 100px 100px; }
+  }
 
-h1 {
-  
-
-  letter-spacing: 3px;
-}
-
+  h1 {
+    letter-spacing: 3px;
+  }
 
   #home h1 {
     font-family: 'Cinzel Decorative', serif;
@@ -101,6 +96,11 @@ h1 {
     transform: translate(-50%, -50%);
     user-select: none;
     pointer-events: none;
+  }
+
+  /* mobile-only subtitle near the quote; hidden by default */
+  .subtitle-mobile {
+    display: none;
   }
 
   #home canvas {
@@ -131,7 +131,6 @@ h1 {
     background: #fff;
   }
   .card::before {
-    /* Slot at top like ID badge */
     content: "";
     position: absolute;
     top: -12px;
@@ -275,9 +274,9 @@ h1 {
     transform: translateX(560px) scale(1) rotateY(-25deg) rotateZ(4deg);
     opacity: 1; pointer-events: auto;
   }
-  /* ================= HOME ================= */
 
-.title-block {
+  /* ================= TITLE BLOCK ================= */
+  .title-block {
     position: absolute;
     top: 35%;
     left: 0px;
@@ -285,32 +284,31 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: auto; /* allow text to stay on one line */
-    white-space: nowrap; /* FORCE text to stay on single line */
-    z-index: 10;
-}
-
-@media (max-width: 900px) {
-  .title-block {
-    margin-left: 18px;
-  }
-}
-
-@media (min-width: 900px) {
-  .title-block {
-    left: 0;
-    top: 38%;
-    transform: none;
-    align-items: flex-start;
     width: auto;
     white-space: nowrap;
-    text-align: left;
-    margin-left: 170px;
+    z-index: 10;
   }
-}
 
+  @media (max-width: 900px) {
+    .title-block {
+      margin-left: 0;
+    }
+  }
 
-.main-title {
+  @media (min-width: 900px) {
+    .title-block {
+      left: 0;
+      top: 38%;
+      transform: none;
+      align-items: flex-start;
+      width: auto;
+      white-space: nowrap;
+      text-align: left;
+      margin-left: 170px;
+    }
+  }
+
+  .main-title {
     font-family: 'Cinzel', serif;
     font-weight: 200;
     font-size: clamp(3rem, 9vw, 8rem);
@@ -321,20 +319,24 @@ h1 {
     text-shadow: 0 6px 20px rgba(0,0,0,0.5);
     user-select: none;
     pointer-events: none;
-}
-
-@media (min-width: 900px) {
-  .main-title {
-    font-size: 7rem;
-    color: #ffe9b3;
-    text-shadow: 3px 3px 16px #000, 0 0 36px #d4af37, 0 2px 0 #a88c4a;
-    letter-spacing: 0.06em;
-    line-height: 1.08;
   }
-}
 
+  /* words inside the main title */
+  .main-title .main-word {
+    display: inline-block;
+  }
 
-.subtitle {
+  @media (min-width: 900px) {
+    .main-title {
+      font-size: 7rem;
+      color: #ffe9b3;
+      text-shadow: 3px 3px 16px #000, 0 0 36px #d4af37, 0 2px 0 #a88c4a;
+      letter-spacing: 0.06em;
+      line-height: 1.08;
+    }
+  }
+
+  .subtitle {
     font-size: 28px;
     font-family: 'Spectral SC', serif;
     font-weight: 300;
@@ -345,290 +347,338 @@ h1 {
     text-shadow: 0px 0px 6px rgba(255, 255, 200, 0.2);
     user-select: none;
     pointer-events: none;
-}
-
-.floating-shelf {
-  color: #d4af37;
-  margin-left: 20px;
-  position: absolute;
-  bottom: 120px;
-  left: 40px;
-  width: 240px;
-  height: 8px;
-  background: linear-gradient(to bottom, #b9935a, #6e5321);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  border-radius: 3px;
-}
-
-.quote {
-  margin-left: 10px;
-  margin-top: -30px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  color: #d4c6a0;
-  position: absolute;
-  bottom: 60px;
-  left: 60px;
-  opacity: 0.8;
-  animation: fadeQuote 12s infinite;
-}
-
-@keyframes fadeQuote {
-  0%, 100% { opacity: 0; transform: translateY(10px); }
-  20%, 80% { opacity: 1; transform: translateY(0); }
-}
-
-/* ================= CONTACT ================= */
-#contact {
-  background: #20222b;
-  padding: 60px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* centers the title and cards horizontally */
-  text-align: center;
-}
-
-#contact .contact-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* centers all cards in one row */
-  gap: 30px;
-  margin-top: 30px; /* spacing below the title */
-}
-
-.contact-card {
-  background: #2a2a34;
-  padding: 20px;
-  border-radius: 12px;
-  width: 220px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.contact-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%; /* makes it circular */
-  object-fit: cover;
-  margin-bottom: 15px;
-  border: 3px solid #d4af37; /* optional golden border */
-}
-
-.contact-card h3 {
-  font-family: 'Cinzel', serif;
-  color: #d4af37;
-  margin-bottom: 8px;
-}
-
-.contact-card p {
-  color: #e6e4df;
-  margin: 0;
-  font-size: 0.95rem;
-}
-
-.contact-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(212,175,55,0.6);
-}
-
-.contact-container {
-  display: flex;
-  justify-content: center; /* center cards horizontally */
-  align-items: center;     /* center cards vertically */
-  gap: 30px;               /* space between cards */
-  flex-wrap: nowrap;       /* keep all cards in a single row */
-  margin-top: 40px;
-  overflow-x: auto;        /* optional: allow horizontal scroll on very small screens */
-  padding: 0 20px;         /* optional: spacing on sides */
-}
-
-/* Contact Section Title */
-#contact .section-title {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-#contact h2 {
-  font-size: 3rem;
-  font-family: 'Cinzel Decorative', serif;
-  color: #d4af37;
-  margin: 0;
-}
-
-/* Responsive layout tweaks */
-@media (max-width: 900px) {
-  nav {
-    top: 15px;
-    gap: 16px;
-    font-size: 0.85rem;
-  }
-
-  section {
-    height: auto;
-    min-height: 100vh;
-    padding: 80px 8px 40px; /* less side padding so text is more visible */
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-
-  /* Hide hanging card + string on mobile for a cleaner hero */
-  #home canvas,
-  .card {
-    display: none !important;
-  }
-
-  /* Let the hero heading and subtitle flow normally */
-  #home h1 {
-    position: static;
-    top: auto;
-    left: auto;
-    margin: 0 0 8px 0;
-    transform: none;
-    text-align: left;
-  }
-
-  .title-block {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    padding: 0 4px;
-    white-space: normal; /* allow wrapping on tablets */
-  }
-
-  .subtitle {
-    margin-top: 8px;
-    margin-left: 0;
-    font-size: 1.1rem;
   }
 
   .floating-shelf {
-    position: relative;
-    left: 0;
-    bottom: 0;
-    width: 60%;
-    margin: 24px auto 8px;
+    color: #d4af37;
+    margin-left: 20px;
+    position: absolute;
+    bottom: 120px;
+    left: 40px;
+    width: 240px;
+    height: 8px;
+    background: linear-gradient(to bottom, #b9935a, #6e5321);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    border-radius: 3px;
   }
 
   .quote {
-    position: relative;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: auto;
-    font-size: 1rem;
-    margin: 0 auto;
+    margin-left: 10px;
+    margin-top: -30px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: #d4c6a0;
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+    opacity: 0.8;
+    animation: fadeQuote 12s infinite;
+  }
+
+  @keyframes fadeQuote {
+    0%, 100% { opacity: 0; transform: translateY(10px); }
+    20%, 80% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ================= CONTACT ================= */
+  #contact {
+    background: #20222b;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
-  .project-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    perspective: none;
-  }
-
-  .project-card,
-  .project-card.center,
-  .project-card.side {
-    position: static;
-    width: 90%;
-    max-width: 360px;
-    height: auto;
-    transform: none !important;
-    opacity: 1 !important;
-    pointer-events: auto;
-  }
-
-  .contact-container {
+  #contact .contact-container {
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: stretch;
-    gap: 20px;
-    overflow-x: visible;
-  }
-}
-
-@media (max-width: 600px) {
-  nav {
-    gap: 10px;
-    font-size: 0.75rem;
-  }
-
-  .title-block {
-    top: 28%;
-    width: 96%;
-    padding-left: 0; /* remove extra left padding on small screens */
-  }
-
-  .main-title {
-    font-size: clamp(2.2rem, 9vw, 3.2rem);
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .card {
-    width: 220px;
-    aspect-ratio: 2/3;
-  }
-
-  #about {
-    padding: 40px 16px;
-  }
-
-  #about h2 {
-    font-size: 1.9rem;
-    line-height: 1.2;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-  }
-
-  #about p {
-    font-size: 1.02rem;
-    max-width: 100%;
-    text-align: left;
-  }
-
-  #projects h2 {
-    font-size: 2.2rem;
+    gap: 30px;
+    margin-top: 30px;
   }
 
   .contact-card {
-    width: 100%;
-    max-width: 260px;
+    background: #2a2a34;
+    padding: 20px;
+    border-radius: 12px;
+    width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-}
 
-.double-tap-instruction {
-  color: #ffd700;
-  font-weight: bold;
-  font-size: 1.25rem;
-  margin-top: -30px;
-  text-align: center;
-  letter-spacing: 1.5px;
-  animation: pulseGold 1.6s infinite alternate;
-  text-shadow: 0 2px 12px #a88c4a, 0 0 6px #fff8;
-}
+  .contact-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #d4af37;
+  }
 
-@keyframes pulseGold {
-  from {
-    opacity: 0.7;
+  .contact-card h3 {
+    font-family: 'Cinzel', serif;
+    color: #d4af37;
+    margin-bottom: 8px;
+  }
+
+  .contact-card p {
+    color: #e6e4df;
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(212,175,55,0.6);
+  }
+
+  .contact-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: nowrap;
+    margin-top: 40px;
+    overflow-x: auto;
+    padding: 0 20px;
+  }
+
+  #contact .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  #contact h2 {
+    font-size: 3rem;
+    font-family: 'Cinzel Decorative', serif;
+    color: #d4af37;
+    margin: 0;
+  }
+
+  .double-tap-instruction {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-top: -30px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    animation: pulseGold 1.6s infinite alternate;
     text-shadow: 0 2px 12px #a88c4a, 0 0 6px #fff8;
   }
-  to {
-    opacity: 1;
-    text-shadow: 0 4px 24px #ffd700, 0 0 16px #fff9;
-  }
-}
 
+  @keyframes pulseGold {
+    from {
+      opacity: 0.7;
+      text-shadow: 0 2px 12px #a88c4a, 0 0 6px #fff8;
+    }
+    to {
+      opacity: 1;
+      text-shadow: 0 4px 24px #ffd700, 0 0 16px #fff9;
+    }
+  }
+
+  /* ================= RESPONSIVE ================= */
+  @media (max-width: 900px) {
+    nav {
+      top: 15px;
+      gap: 16px;
+      font-size: 0.85rem;
+    }
+
+    section {
+      height: auto;
+      min-height: 100vh;
+      padding: 80px 8px 40px;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    #home canvas,
+    .card {
+      display: none !important;
+    }
+
+    #home {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 20px 60px;
+    }
+
+    .title-block {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      width: 100%;
+      max-width: 100%;
+      padding: 0;
+      margin: 0 0 40px 0;
+      white-space: normal;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* wrappers so we can control spacing on mobile */
+    .title-main-wrapper,
+    .subtitle-wrapper {
+      width: 100%;
+      text-align: center;
+    }
+
+    .main-title {
+      position: static;
+      margin: 0;
+      transform: none;
+      text-align: center;
+    }
+
+    /* stack GREAT and BOOKS as separate lines on mobile */
+    .main-title .main-word {
+      display: block;
+      line-height: 1.05;
+    }
+
+    /* hide subtitle under the main title on mobile */
+    .subtitle-wrapper {
+      display: none;
+    }
+
+    /* show subtitle near the quote on mobile */
+    .subtitle-mobile {
+      display: block;
+      margin-top: 12px;
+      font-size: 1.1rem;       /* bigger Literature Archives on mobile */
+      text-align: center;
+      color: #d1c5a2;
+      font-family: 'Spectral SC', serif;
+      letter-spacing: 0.18em;
+    }
+
+    .floating-shelf {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      width: 180px;
+      margin: 0 0 20px 0;
+    }
+
+    .quote {
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      width: 90%;
+      max-width: 320px;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 0;
+      text-align: center;
+    }
+
+    .project-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      perspective: none;
+      padding-left: 0;  /* remove left padding on mobile */
+      margin-left: 0;   /* ensure container is centered */
+    }
+
+    .project-card,
+    .project-card.center,
+    .project-card.side {
+      position: static;
+      width: 90%;
+      max-width: 360px;
+      height: auto;
+      transform: none !important;
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+
+    .contact-container {
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 20px;
+      overflow-x: visible;
+    }
+  }
+
+  @media (max-width: 600px) {
+    nav {
+      gap: 10px;
+      font-size: 0.75rem;
+    }
+
+    #home {
+      padding: 120px 20px 60px;
+    }
+
+    .title-block {
+      width: 100%;
+      padding: 0;
+      margin: 0 0 40px 0;
+    }
+
+    .main-title {
+      font-size: clamp(3.4rem, 13vw, 4.6rem); /* make GREAT BOOKS even bigger on very small screens */
+    }
+
+    .subtitle-mobile {
+      font-size: 1.2rem;       /* slightly larger on very small screens */
+    }
+
+    .floating-shelf {
+      width: 180px;
+      margin: 4px 0 22px 0;
+    }
+
+    .quote {
+      font-size: 1.08rem;
+      max-width: 92%;
+    }
+
+    .card {
+      width: 220px;
+      aspect-ratio: 2/3;
+    }
+
+    #about {
+      padding: 40px 16px;
+    }
+
+    #about h2 {
+      font-size: 1.9rem;
+      line-height: 1.2;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    #about p {
+      font-size: 1.02rem;
+      max-width: 100%;
+      text-align: left;
+    }
+
+    #projects h2 {
+      font-size: 2.2rem;
+    }
+
+    .contact-card {
+      width: 100%;
+      max-width: 260px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -642,14 +692,21 @@ h1 {
   <!-- HOME SECTION -->
   <section id="home">
     <div class="title-block">
-      <h1 class="main-title">GREAT BOOKS</h1>
-      <h2 class="subtitle">Literature Chronicles</h2>
+      <div class="title-main-wrapper">
+        <h1 class="main-title">
+          <span class="main-word">GREAT</span>
+          <span class="main-word">BOOKS</span>
+        </h1>
+      </div>
+      <div class="subtitle-wrapper">
+        <h2 class="subtitle">Literature Archives</h2>
+      </div>
     </div>
 
-    <p class="quote">“A room without books is like a body without a soul.” – Cicero</p>
-
     <div class="floating-shelf"></div>
+    <div class="subtitle-mobile">Literature Archives</div>
 
+    <p class="quote">"A room without books is like a body without a soul." – Cicero</p>
 
     <canvas id="stringCanvas"></canvas>
     <div class="card" id="card">
@@ -666,28 +723,27 @@ h1 {
   <section id="about">
     <div>
       <h2>Literary Archives</h2>
-          <p>
-            Welcome to our Literature Database Project — a creative online collection of timeless literary works. 
-            This website serves as an interactive archive showcasing great writings from different eras, 
-            including <b><em style="color: #d4af37;">The Color Purple</em></b> by Alice Walker and Robert Frost’s classics such as <br>
-            <b><em style="color: #d4af37;">The Road Not Taken</em></b> and <b><em style="color: #d4af37;">Stopping by Woods on a Snowy Evening</em></b>. 
-            Designed like a digital library, it aims to engage readers, students, and literature enthusiasts 
-            through concise analyses, author insights, and thematic explorations. 
-            Our goal is to celebrate the beauty of language and the lasting impact of these masterpieces 
-            on modern thought and storytelling.
-          </p>
-
+      <p>
+        Welcome to our Literature Database Project — a creative online collection of timeless literary works. 
+        This website serves as an interactive archive showcasing great writings from different eras, 
+        including <b><em style="color: #d4af37;">The Color Purple</em></b> by Alice Walker and Robert Frost's classics such as <br>
+        <b><em style="color: #d4af37;">The Road Not Taken</em></b> and <b><em style="color: #d4af37;">Stopping by Woods on a Snowy Evening</em></b>. 
+        Designed like a digital library, it aims to engage readers, students, and literature enthusiasts 
+        through concise analyses, author insights, and thematic explorations. 
+        Our goal is to celebrate the beauty of language and the lasting impact of these masterpieces 
+        on modern thought and storytelling.
+      </p>
     </div>
   </section>
 
   <!-- PROJECTS SECTION -->
   <section id="projects">
-    <h2 >Projects</h2>
+    <h2>Projects</h2>
     <p class="double-tap-instruction"></p>
     <div class="project-container active" id="projectContainer">
-    <div class="project-card center" 
-     style="background: linear-gradient(rgba(104, 77, 53, 1), rgba(43, 31, 21, 1));">   
-     <img src="{{ asset('asset/images/iliad.png') }}" alt="Main Project">
+      <div class="project-card center" 
+           style="background: linear-gradient(rgba(104, 77, 53, 1), rgba(43, 31, 21, 1));">   
+        <img src="{{ asset('asset/images/iliad.png') }}" alt="Main Project">
         <h3>Classical Age</h3>
         <h4>The Illiad</h4>
         <p>An epic poem that chronicles the wrath of Achilles during the Trojan War, exploring themes of honor, fate, and the human cost of pride.</p>
@@ -705,186 +761,177 @@ h1 {
         <p>A traveler reflects on how choosing a less conventional path shapes the course of his life.</p>
       </div>
     </div>
-    
   </section>
 
   <!-- MEMBERS SECTION -->
-   <section id="contact">
-  <div class="section-title">
-    <h2>Members:</h2>
-  </div>
-
-  <div class="contact-container">
-    <div class="contact-card">
-      <h3>Sarah C. Abane</h3>
+  <section id="contact">
+    <div class="section-title">
+      <h2>Members:</h2>
     </div>
-    <div class="contact-card">
-      <h3>Elaine Mae A. Bertiz</h3>
+
+    <div class="contact-container">
+      <div class="contact-card">
+        <h3>Sarah C. Abane</h3>
+      </div>
+      <div class="contact-card">
+        <h3>Elaine Mae A. Bertiz</h3>
+      </div>
+      <div class="contact-card">
+        <h3>Richard D. Bilan</h3>
+      </div>
+      <div class="contact-card">
+        <h3>Annika Gail Cipriano</h3>
+      </div>
+      <div class="contact-card">
+        <h3>Lord Zaro Fiber A. Quintanilla</h3>
+      </div>
     </div>
-    <div class="contact-card">
-      <h3>Richard D. Bilan</h3>
-    </div>
-    <div class="contact-card">
-      <h3>Annika Gail Cipriano</h3>
-    </div>
-    <div class="contact-card">
-      <h3>Lord Zaro Fiber A. Quintanilla</h3>
-    </div>
-  </div>
-</section>
+  </section>
 
+  <script>
+    /* === HOME Card Physics (with lanyard style) === */
+    const canvas = document.getElementById("stringCanvas");
+    const ctx = canvas.getContext("2d");
+    const card = document.getElementById("card");
 
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
 
-<script>
-/* === HOME Card Physics (with lanyard style) === */
-const canvas = document.getElementById("stringCanvas");
-const ctx = canvas.getContext("2d");
-const card = document.getElementById("card");
+    const anchorOffsetX = 300;
+    const anchorOffsetY = 0;
+    let anchor = { x: W - anchorOffsetX, y: anchorOffsetY };
 
-let W = window.innerWidth;
-let H = window.innerHeight;
-canvas.width = W;
-canvas.height = H;
+    let cardPos = { x: anchor.x, y: -200 }; 
+    let cardVel = { x: 0, y: 0 };
+    let gravity = 0.4;
+    let stiffness = 0.02;
+    let damping = 0.98;
 
-const anchorOffsetX = 300;
-const anchorOffsetY = 0;
-let anchor = { x: W - anchorOffsetX, y: anchorOffsetY };
+    let dragging = false;
+    let dragOffset = { x: 0, y: 0 };
+    let hasLanded = false;
 
-let cardPos = { x: anchor.x, y: -200 }; 
-let cardVel = { x: 0, y: 0 };
-let gravity = 0.4;
-let stiffness = 0.02;
-let damping = 0.98;
+    card.addEventListener("mousedown", e => {
+      dragging = true;
+      card.style.cursor = "grabbing";
+      dragOffset.x = e.clientX - cardPos.x;
+      dragOffset.y = e.clientY - cardPos.y;
+    });
+    document.addEventListener("mouseup", () => {
+      dragging = false;
+      card.style.cursor = "grab";
+    });
+    document.addEventListener("mousemove", e => {
+      if (dragging) {
+        cardPos.x = e.clientX - dragOffset.x;
+        cardPos.y = e.clientY - dragOffset.y;
+        cardVel.x = 0;
+        cardVel.y = 0;
+      }
+    });
 
-let dragging = false;
-let dragOffset = { x: 0, y: 0 };
-let hasLanded = false;
+    card.addEventListener("click", () => {
+      if (hasLanded) {
+        card.classList.toggle("flipped");
+        card.classList.add("flip-light");
+        setTimeout(() => card.classList.remove("flip-light"), 800);
+      }
+    });
 
-card.addEventListener("mousedown", e => {
-  dragging = true;
-  card.style.cursor = "grabbing";
-  dragOffset.x = e.clientX - cardPos.x;
-  dragOffset.y = e.clientY - cardPos.y;
-});
-document.addEventListener("mouseup", () => {
-  dragging = false;
-  card.style.cursor = "grab";
-});
-document.addEventListener("mousemove", e => {
-  if (dragging) {
-    cardPos.x = e.clientX - dragOffset.x;
-    cardPos.y = e.clientY - dragOffset.y;
-    cardVel.x = 0;
-    cardVel.y = 0;
-  }
-});
+    function animate(){
+      ctx.clearRect(0,0,W,H);
 
-card.addEventListener("click", () => {
-  if (hasLanded) {
-    card.classList.toggle("flipped");
-    card.classList.add("flip-light");
-    setTimeout(() => card.classList.remove("flip-light"), 800);
-  }
-});
+      let moving = false;
 
-function animate(){
-  ctx.clearRect(0,0,W,H);
+      if (!dragging) {
+        cardVel.y += gravity;
 
-  let moving = false;
+        let dx = cardPos.x - anchor.x;
+        let dy = cardPos.y - anchor.y;
+        let dist = Math.sqrt(dx*dx + dy*dy);
+        let ropeLength = H / 2;
 
-  if (!dragging) {
-    cardVel.y += gravity;
+        if (dist > ropeLength) {
+          let diff = dist - ropeLength;
+          let nx = dx / dist;
+          let ny = dy / dist;
+          cardVel.x -= nx * diff * stiffness;
+          cardVel.y -= ny * diff * stiffness;
+        }
 
-    let dx = cardPos.x - anchor.x;
-    let dy = cardPos.y - anchor.y;
-    let dist = Math.sqrt(dx*dx + dy*dy);
-    let ropeLength = H / 2;
+        cardPos.x += cardVel.x;
+        cardPos.y += cardVel.y;
+        cardVel.x *= damping;
+        cardVel.y *= damping;
 
-    if (dist > ropeLength) {
-      let diff = dist - ropeLength;
-      let nx = dx / dist;
-      let ny = dy / dist;
-      cardVel.x -= nx * diff * stiffness;
-      cardVel.y -= ny * diff * stiffness;
+        if (Math.abs(cardVel.x) > 0.5 || Math.abs(cardVel.y) > 0.5) {
+          moving = true;
+        }
+
+        if (!hasLanded && Math.abs(cardVel.y) < 0.5 && cardPos.y > H/3) {
+          hasLanded = true;
+        }
+      }
+
+      ctx.strokeStyle = "#f6e7c6";
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(anchor.x, anchor.y);
+      ctx.lineTo(cardPos.x, cardPos.y - card.offsetHeight/2 - 8);
+      ctx.stroke();
+
+      card.style.left = (cardPos.x - card.offsetWidth / 2) + "px";
+      card.style.top = (cardPos.y - card.offsetHeight / 2) + "px";
+
+      if (moving) {
+        card.classList.add("moving");
+      } else {
+        card.classList.remove("moving");
+      }
+
+      requestAnimationFrame(animate);
     }
+    animate();
 
-    cardPos.x += cardVel.x;
-    cardPos.y += cardVel.y;
-    cardVel.x *= damping;
-    cardVel.y *= damping;
+    window.addEventListener("resize", () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+      anchor.x = W - anchorOffsetX;
+      anchor.y = anchorOffsetY;
+    });
 
-    if (Math.abs(cardVel.x) > 0.5 || Math.abs(cardVel.y) > 0.5) {
-      moving = true;
-    }
+    /* === PROJECTS Cards Animation === */
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".project-card").forEach((card, i) => {
+        setTimeout(() => card.classList.add("show"), i * 150);
+      });
+    });
 
-    if (!hasLanded && Math.abs(cardVel.y) < 0.5 && cardPos.y > H/3) {
-      hasLanded = true;
-    }
-  }
+    const projectContainer = document.getElementById("projectContainer");
+    const centerCard = projectContainer.querySelector(".center");
+    let clickTimer = null;
 
-  // draw lanyard rope
-  ctx.strokeStyle = "#f6e7c6";
-  ctx.lineWidth = 6;
-  ctx.beginPath();
-  ctx.moveTo(anchor.x, anchor.y);
-  // attach rope to slot position (top-center of card)
-  ctx.lineTo(cardPos.x, cardPos.y - card.offsetHeight/2 - 8);
-  ctx.stroke();
+    centerCard.addEventListener("click", (e) => {
+      if (clickTimer) return;
 
-  card.style.left = (cardPos.x - card.offsetWidth / 2) + "px";
-  card.style.top = (cardPos.y - card.offsetHeight / 2) + "px";
+      clickTimer = setTimeout(() => {
+        // Navigate to Iliad opening page on single click
+        window.location.href = "{{ url('/opening-iliad') }}";
+        clickTimer = null;
+      }, 250);
+    });
 
-  if (moving) {
-    card.classList.add("moving");
-  } else {
-    card.classList.remove("moving");
-  }
-
-  requestAnimationFrame(animate);
-}
-animate();
-
-window.addEventListener("resize", () => {
-  W = window.innerWidth;
-  H = window.innerHeight;
-  canvas.width = W;
-  canvas.height = H;
-  anchor.x = W - anchorOffsetX;
-  anchor.y = anchorOffsetY;
-});
-
-/* === PROJECTS Cards Animation === */
-window.addEventListener("load", () => {
-  document.querySelectorAll(".project-card").forEach((card, i) => {
-    setTimeout(() => card.classList.add("show"), i * 150);
-  });
-});
-
-const projectContainer = document.getElementById("projectContainer");
-const centerCard = projectContainer.querySelector(".center");
-let clickTimer = null;
-
-centerCard.addEventListener("click", (e) => {
-  // Prevent single click if it was a double click
-  if (clickTimer) return;
-
-  clickTimer = setTimeout(() => {
-    // Navigate to project1 route
-    window.location.href = "{{ url('/opening-iliad') }}";
-    clickTimer = null;
-  }, 250); // 250ms delay to check for dblclick
-});
-
-centerCard.addEventListener("dblclick", (e) => {
-  // Cancel single click navigation
-  if (clickTimer) {
-    clearTimeout(clickTimer);
-    clickTimer = null;
-  }
-  // Toggle animation
-  projectContainer.classList.toggle("active");
-});
-
-</script>
+    centerCard.addEventListener("dblclick", (e) => {
+      if (clickTimer) {
+        clearTimeout(clickTimer);
+        clickTimer = null;
+      }
+      projectContainer.classList.toggle("active");
+    });
+  </script>
 </body>
 </html>
